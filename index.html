@@ -1,29 +1,122 @@
-<button 
-  onclick="openInBrowser()" 
-  style="background:#833AB4; color:#fff; padding:12px 20px; border:none; border-radius:10px; font-size:16px; cursor:pointer;">
-  🔗 Открыть калькулятор в браузере
-</button>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор стоимости</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://i.ibb.co/jZvLxN4T/photo-2025-09-27-00-37-47.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .calculator {
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #833AB4;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #9b45c4;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .note {
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .instagram {
+      margin-top: 25px;
+    }
+    .instagram a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: #E1306C;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .instagram svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Калькулятор стоимости</h2>
+    <input type="number" id="priceRub" placeholder="Введите цену в рублях">
+    <input type="number" id="rate" value="0.19" step="0.01">
+    <button onclick="calculate()">Рассчитать</button>
+    <div class="result" id="result">Итог: –</div>
+    <div class="note">
+      • Цена без учета доставки по весу<br>
+      • Цена указана с процентом байера
+    </div>
+  </div>
+
+  <div class="instagram">
+    <a href="https://instagram.com/yourlogin" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 2a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-.5a1.5 1.5 0 11-3.001-.001A1.5 1.5 0 0118.5 7.5z"/></svg>
+      @yourlogin
+    </a>
+  </div>
 
 <script>
-function openInBrowser() {
-  // 👉 вставь сюда свою реальную ссылку с /exec
-  const url = "https://script.google.com/macros/s/AKfycbw6QIyQwyh78ASlLuGYDWukuPaZayR1TEODhQwep5b2UbqCn1GexDccgO1nHwdIv-MOBw/exec"; 
-
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-
-  if (/android/i.test(ua)) {
-    // Android → открыть в Chrome
-    window.location.href = "intent://" + url.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
-  } 
-  else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-    // iOS → сначала пробуем Chrome, если нет — Safari
-    window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, "");
-    setTimeout(() => { window.location.href = url; }, 500); 
-  } 
-  else {
-    // ПК и другие устройства → обычное открытие
-    window.open(url, "_blank");
+function calculate() {
+  let priceRub = parseFloat(document.getElementById('priceRub').value);
+  let rate = parseFloat(document.getElementById('rate').value);
+  if (isNaN(priceRub) || isNaN(rate)) {
+    document.getElementById('result').innerText = "Введите цену и курс!";
+    return;
   }
+  let result = priceRub * 1.25 * rate * 1.015;
+  document.getElementById('result').innerText = "Итог: " + result.toFixed(2) + " MDL";
 }
 </script>
 
+</body>
+</html>
