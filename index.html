@@ -103,32 +103,14 @@
   </a>
 
   <script>
-    let kurs = null;
-
-    // 👉 сюда вставь ссылку "опубликовать как CSV" из своей таблицы
-    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDjy1VwVlKhAcS_oN36jYU_AVvGK3SdvHhYW7Uv4jY4m1o9fLW6d37xBAFfrMCeDsc-eVSjotp3zPj/pub?gid=0&single=true&output=csv";
-
-    // загружаем курс при загрузке страницы
-    fetch(sheetUrl)
-      .then(response => response.text())
-      .then(data => {
-        // CSV обычно возвращает одно число, например: "0.19"
-        kurs = parseFloat(data.trim().split(",")[0]);
-        console.log("Курс загружен:", kurs);
-      })
-      .catch(err => {
-        console.error("Ошибка загрузки курса:", err);
-      });
+    // 👉 Здесь меняешь курс вручную, если нужно
+    const kurs = 0.19;
 
     function calculate() {
       let price = parseFloat(document.getElementById("price").value);
       if (isNaN(price)) {
         document.getElementById("result").innerHTML = "Введите цену!";
         document.getElementById("note").innerHTML = "";
-        return;
-      }
-      if (kurs === null) {
-        document.getElementById("result").innerHTML = "Курс не загружен!";
         return;
       }
       let result = price * 1.25 * kurs * 1.015;
