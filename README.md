@@ -1,2 +1,32 @@
-# dostavka.github.io
-ggg
+<button 
+  onclick="openInBrowser()" 
+  style="background:#833AB4; color:#fff; padding:12px 20px; border:none; border-radius:10px; font-size:16px; cursor:pointer; display:flex; align-items:center; gap:8px;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+    <path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 4.41 3.59 8 8 8h.01v-5.64h-2.4v-2.36h2.4v-1.8c0-2.38 1.43-3.68 3.55-3.68 
+    1.02 0 2.09.18 2.09.18v2.3h-1.18c-1.16 0-1.52.72-1.52 1.46v1.54h2.58l-.41 2.36h-2.17V20c4.41 0 8-3.59 8-8 
+    0-5.5-4.46-9.96-9.96-9.96z"/>
+  </svg>
+  Открыть калькулятор
+</button>
+
+<script>
+function openInBrowser() {
+  const url = "[https://script.google.com/macros/s/AKfycbx12345/exec](https://script.google.com/macros/s/AKfycbw6QIyQwyh78ASlLuGYDWukuPaZayR1TEODhQwep5b2UbqCn1GexDccgO1nHwdIv-MOBw/exec)"; // твоя ссылка
+
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+  if (/android/i.test(ua)) {
+    // Android → открыть в Chrome
+    window.location.href = "intent://" + url.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+  } 
+  else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+    // iOS → попробовать открыть в Safari/Chrome
+    window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, "");
+    setTimeout(() => { window.location.href = url; }, 500); // fallback
+  } 
+  else {
+    // Остальные → обычный переход
+    window.open(url, "_blank");
+  }
+}
+</script>
